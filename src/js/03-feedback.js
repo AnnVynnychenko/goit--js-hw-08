@@ -10,20 +10,22 @@ feedbackFormEl.addEventListener('submit', onFormSubmit);
 
 populateForm();
 
-function onFormInput(evt) {
-    formData[evt.target.name] = evt.target.value;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
-}
-
 function onFormSubmit (evt) {
     evt.preventDefault();
       console.log({
         email: feedbackFormEl.elements.email.value,
         message: feedbackFormEl.elements.message.value,
       });
+    
     feedbackFormEl.reset();
     localStorage.removeItem(STORAGE_KEY);
+    
 };
+
+function onFormInput(evt) {
+    formData[evt.target.name] = evt.target.value;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+}
 
 function populateForm() {
     const savedFormData = localStorage.getItem(STORAGE_KEY);
@@ -36,7 +38,7 @@ function populateForm() {
         feedbackFormEl.elements.message.value = parsedFormData.message;
         };
     };
-    return parsedFormData;
 }
+
 
 
