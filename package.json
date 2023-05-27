@@ -2,14 +2,14 @@
   "name": "goit--js-hw-08",
   "version": "2.0.0",
   "description": "",
-  "homepage": "https://github.com/AnnVynnychenko/goit--js-hw-08",
+  "homepage": "https://annvynnychenko.github.io/goit--js-hw-08/",
   "scripts": {
     "start": "parcel src/*.html",
     "build": "parcel build src/*.html --public-url /goit--js-hw-08npm/"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/goitacademy/parcel-project-template.git"
+    "url": "git+https://github.com/AnnVynnychenko/goit--js-hw-08.git"
   },
   "keywords": [],
   "author": "Repeta <alexander.repeta@gmail.com>",
