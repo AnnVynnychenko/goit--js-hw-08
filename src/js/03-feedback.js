@@ -3,18 +3,16 @@ import '../sass/common.scss';
 import '../sass/03-feedback.scss';
 
 const feedbackFormEl = document.querySelector('.feedback-form');
-let feedbackFormData = {};
+let formData = {};
 const STORAGE_KEY = 'feedback-form-state';
-
 feedbackFormEl.addEventListener('input', throttle(onFormInput, 500));
 feedbackFormEl.addEventListener('submit', onFormSubmit);
-
 
 populateForm();
 
 function onFormInput(evt) {
-    feedbackFormData[evt.target.name] = evt.target.value;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(feedbackFormData));
+    formData[evt.target.name] = evt.target.value;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 }
 
 function onFormSubmit (evt) {
@@ -25,18 +23,15 @@ function onFormSubmit (evt) {
     });
     feedbackFormEl.reset();
     localStorage.removeItem(STORAGE_KEY);
-    feedbackFormData = {};
 };
 
 function populateForm() {
     const savedFormData = localStorage.getItem(STORAGE_KEY);
     const parsedFormData = JSON.parse(savedFormData);
-    feedbackFormData = parsedFormData;
     if (parsedFormData) {
         if (parsedFormData.email) {
         feedbackFormEl.elements.email.value = parsedFormData.email;
         };
-        
         if (parsedFormData.message) {
         feedbackFormEl.elements.message.value = parsedFormData.message;
         };
