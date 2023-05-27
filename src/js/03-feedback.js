@@ -20,7 +20,7 @@ function onFormSubmit (evt) {
       console.log({
         email: feedbackFormEl.elements.email.value,
         message: feedbackFormEl.elements.message.value,
-    });
+      });
     feedbackFormEl.reset();
     localStorage.removeItem(STORAGE_KEY);
 };
