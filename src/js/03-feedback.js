@@ -9,14 +9,12 @@ const STORAGE_KEY = 'feedback-form-state';
 feedbackFormEl.addEventListener('input', throttle(onFormInput, 500));
 feedbackFormEl.addEventListener('submit', onFormSubmit);
 
-
+populateForm();
 
 function onFormInput(evt) {
     feedbackFormData[evt.target.name] = evt.target.value;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(feedbackFormData));
 }
-
-
 
 function onFormSubmit (evt) {
     evt.preventDefault();
@@ -24,12 +22,10 @@ function onFormSubmit (evt) {
         email: feedbackFormEl.elements.email.value,
         message: feedbackFormEl.elements.message.value,
     });
+    feedbackFormEl.reset();
     localStorage.removeItem(STORAGE_KEY);
-    evt.currentTarget.reset();
     feedbackFormData = {};
 };
-
-populateForm();
 
 function populateForm() {
     const savedFormData = localStorage.getItem(STORAGE_KEY);
@@ -44,6 +40,7 @@ function populateForm() {
         feedbackFormEl.elements.message.value = parsedFormData.message;
         };
     };
+    return parsedFormData;
 }
 
 
