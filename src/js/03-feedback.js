@@ -4,41 +4,43 @@ import '../sass/03-feedback.scss';
 
 const feedbackFormEl = document.querySelector('.feedback-form');
 let formData = {};
+const { email, message } = feedbackFormEl.elements;
 const STORAGE_KEY = 'feedback-form-state';
 feedbackFormEl.addEventListener('input', throttle(onFormInput, 500));
 feedbackFormEl.addEventListener('submit', onFormSubmit);
 
 populateForm();
 
-function onFormSubmit (evt) {
-    evt.preventDefault();
-      console.log({
-        email: feedbackFormEl.elements.email.value,
-        message: feedbackFormEl.elements.message.value,
-      });
-    
-    feedbackFormEl.reset();
-    localStorage.removeItem(STORAGE_KEY);
-    
-};
-
-function onFormInput(evt) {
-    formData[evt.target.name] = evt.target.value;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+function onFormInput() {
+  formData.email = email.value;
+  formData.message = message.value;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 }
 
 function populateForm() {
-    const savedFormData = localStorage.getItem(STORAGE_KEY);
-    const parsedFormData = JSON.parse(savedFormData);
-    if (parsedFormData) {
-        if (parsedFormData.email) {
-        feedbackFormEl.elements.email.value = parsedFormData.email;
-        };
-        if (parsedFormData.message) {
-        feedbackFormEl.elements.message.value = parsedFormData.message;
-        };
-    };
+  const savedFormData = JSON.parse(localStorage.getItem(STORAGE_KEY));
+  console.log(savedFormData)
+  
+  if (savedFormData) {
+    if (savedFormData.email) {
+      email.value = savedFormData.email;
+    }
+    if (savedFormData.message) {
+      message.value = savedFormData.message;
+    }
+  }
 }
+
+function onFormSubmit(e) {
+  e.preventDefault();
+  console.log({
+    email: email.value,
+    message: message.value,
+  });
+  localStorage.removeItem(STORAGE_KEY);
+  feedbackFormEl.reset();
+}
+
 
 
 
